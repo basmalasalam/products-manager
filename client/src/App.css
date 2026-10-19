@@ -1,0 +1,342 @@
+/* =========================
+   1. Global Styles
+========================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
+  font-family: "Inter", sans-serif;
+  color: #1e293b;
+  background: #f5f6fc;
+
+  --primary: #6558d3;
+  --primary-dark: #5144b5;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e8eaf2;
+  --card-bg: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  background: #f5f6fc;
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  transition: all 0.2s ease;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(101, 88, 211, 0.2);
+  outline-offset: 2px;
+}
+
+/* =========================
+   2. Navbar
+========================= */
+
+.navbar {
+  background: linear-gradient(120deg, #29264d, #5144a5) !important;
+  padding: 20px 0;
+  box-shadow: 0 4px 20px rgba(41, 38, 77, 0.15);
+}
+
+.navbar .container {
+  gap: 16px;
+}
+
+.navbar .navbar-brand {
+  color: #ffffff !important;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.navbar .badge {
+  background: rgba(255, 255, 255, 0.16) !important;
+  color: #ffffff;
+  padding: 9px 14px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* =========================
+   3. Page Layout
+========================= */
+
+.container {
+  max-width: 1200px;
+}
+
+.container.mt-4 {
+  margin-top: 36px !important;
+  margin-bottom: 28px;
+}
+
+/* =========================
+   4. Product Form
+========================= */
+
+form.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 28px !important;
+  box-shadow: 0 8px 30px rgba(31, 41, 55, 0.045) !important;
+}
+
+form.card h4 {
+  color: var(--text-dark);
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  margin-bottom: 22px !important;
+}
+
+.form-label {
+  color: #475569;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 10px;
+}
+
+.form-control {
+  min-height: 46px;
+  padding: 11px 14px;
+  color: var(--text-dark);
+  background-color: #fbfbfe;
+  border: 1px solid #e2e5ef;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.form-control::placeholder {
+  color: #a0a7b8;
+}
+
+.form-control:focus {
+  background-color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(101, 88, 211, 0.1);
+}
+
+form .btn-primary {
+  min-height: 44px;
+  padding: 10px 22px;
+  background: var(--primary);
+  border-color: var(--primary);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(101, 88, 211, 0.15);
+}
+
+form .btn-primary:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+form .btn-secondary {
+  min-height: 44px;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* =========================
+   5. Product Grid
+========================= */
+
+.row.g-3 {
+  row-gap: 22px !important;
+}
+
+.row.g-3 > [class*="col-"] {
+  display: flex;
+}
+
+/* =========================
+   6. Product Cards
+========================= */
+
+.card.h-100 {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 5px 18px rgba(31, 41, 55, 0.035) !important;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.card.h-100:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(31, 41, 55, 0.09) !important;
+}
+
+.card.h-100 .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 23px;
+}
+
+.card.h-100 .card-title {
+  color: var(--text-dark);
+  font-size: 1.08rem;
+  font-weight: 800;
+  line-height: 1.5;
+  margin-bottom: 18px;
+  overflow-wrap: anywhere;
+}
+
+.card.h-100 .card-text {
+  width: 100%;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+.card.h-100 .card-text strong {
+  display: inline-block;
+  min-width: 82px;
+  color: #475569;
+  font-weight: 600;
+}
+
+/* =========================
+   7. Stock Badges
+========================= */
+
+.badge.bg-danger {
+  display: inline-block;
+  padding: 8px 11px;
+  color: #b42336 !important;
+  background: #fff0f1 !important;
+  border: 1px solid #ffd9de;
+  border-radius: 7px;
+  font-size: 0.73rem;
+  font-weight: 700;
+}
+
+.badge.bg-success {
+  color: #137547 !important;
+  background: #e9f9f0 !important;
+}
+
+/* =========================
+   8. Product Action Buttons
+========================= */
+
+.card.h-100 .d-flex.gap-2 {
+  width: 100%;
+  margin-top: auto !important;
+  padding-top: 18px;
+  flex-wrap: wrap;
+}
+
+.card.h-100 .btn {
+  flex: 1;
+  min-height: 39px;
+  padding: 8px 12px;
+  border-radius: 9px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.card.h-100 .btn-warning {
+  color: #74520a;
+  background: #fff5d9;
+  border-color: #ffedb0;
+}
+
+.card.h-100 .btn-warning:hover {
+  color: #ffffff;
+  background: #e6a817;
+  border-color: #e6a817;
+}
+
+.card.h-100 .btn-danger {
+  color: #c23645;
+  background: #fff0f1;
+  border-color: #ffd9de;
+}
+
+.card.h-100 .btn-danger:hover {
+  color: #ffffff;
+  background: #dc3545;
+  border-color: #dc3545;
+}
+
+/* =========================
+   9. Responsive Design
+========================= */
+
+@media (max-width: 767px) {
+  .navbar {
+    padding: 16px 0;
+  }
+
+  .navbar .navbar-brand {
+    font-size: 1.05rem;
+  }
+
+  .container.mt-4 {
+    margin-top: 22px !important;
+    margin-bottom: 22px;
+  }
+
+  form.card {
+    padding: 20px !important;
+    border-radius: 14px;
+  }
+
+  .card.h-100 .card-body {
+    padding: 19px;
+  }
+
+  .row.g-3 {
+    row-gap: 16px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .navbar .navbar-brand {
+    font-size: 0.95rem;
+  }
+
+  .navbar .badge {
+    padding: 7px 9px;
+    font-size: 0.7rem;
+  }
+
+  form.card {
+    padding: 16px !important;
+  }
+}
