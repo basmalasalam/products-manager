@@ -2,6 +2,15 @@ import "dotenv/config";
 import pool from "./db.js";
 
 async function setup() {
+  const host = process.env.DB_HOST || "";
+  const isAiven = host.includes("aivencloud");
+  console.log(
+    isAiven
+      ? "Connecting to: Aiven (cloud database)"
+      : "Connecting to: LOCAL database (not Aiven!)"
+  );
+  console.log("SSL enabled:", process.env.DB_SSL === "true");
+
   await pool.query(`
     CREATE TABLE IF NOT EXISTS products (
       id INT AUTO_INCREMENT PRIMARY KEY,
