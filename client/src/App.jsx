@@ -88,7 +88,9 @@ useEffect(() => {
 
       const result = await res.json();
 
-      setProducts(result.data);
+      const list = Array.isArray(result) ? result : result.data;
+
+      setProducts(Array.isArray(list) ? list : []);
     } catch (err) {
       console.error("Error fetching products:", err);
     }
