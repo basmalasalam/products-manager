@@ -39,7 +39,7 @@ app.get("/products/search", async (req, res) => {
     const q = (req.query.q || "").trim();
     const [rows] = await pool.query(
       "SELECT * FROM products WHERE name LIKE ? ORDER BY id",
-      [`%${q}%`]
+      [`%${q}%`],
     );
     return res.status(200).json(rows);
   } catch (err) {
@@ -62,7 +62,7 @@ app.post("/products", async (req, res) => {
     // التأكد إن الاسم مش مكرر
     const [existing] = await pool.query(
       "SELECT id FROM products WHERE name = ?",
-      [name]
+      [name],
     );
 
     if (existing.length > 0) {
@@ -73,7 +73,7 @@ app.post("/products", async (req, res) => {
 
     const [result] = await pool.query(
       "INSERT INTO products (name, price, category, stock) VALUES (?, ?, ?, ?)",
-      [name, price, category, stock]
+      [name, price, category, stock],
     );
 
     return res.status(201).json({
@@ -143,7 +143,7 @@ app.put("/products/:id", async (req, res) => {
   try {
     const [result] = await pool.query(
       "UPDATE products SET name = ?, price = ?, category = ?, stock = ? WHERE id = ?",
-      [name, Number(price), category, Number(stock), id]
+      [name, Number(price), category, Number(stock), id],
     );
 
     if (result.affectedRows === 0) {
@@ -164,6 +164,10 @@ app.put("/products/:id", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is listening at port: ${port}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`Server is listening at port: ${port}`);
+  });
+}
+
+export default app;
