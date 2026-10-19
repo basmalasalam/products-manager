@@ -17,8 +17,8 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   ssl,
+  connectTimeout: 8000,
   waitForConnections: true,
   connectionLimit: 2,
 });
-
 export default pool;

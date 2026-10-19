@@ -29,7 +29,11 @@ app.get("/products", async (req, res) => {
     return res.status(200).json(rows);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: "error finding data" });
+    return res.status(500).json({
+      message: "error finding data",
+      error: err.message,
+      code: err.code,
+    });
   }
 });
 
