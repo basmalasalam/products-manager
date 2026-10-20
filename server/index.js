@@ -6,12 +6,26 @@ import pool from "./db.js";
 const app = express();
 
 
-const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
-  .split(",")
-  .map((url) => url.trim());
 
-app.use(cors({ origin: allowedOrigins }));
+const allowedOrigins = [
+  "https://products-manager-cyzs.vercel.app",
+  "http://localhost:5173",
+  ...(process.env.CLIENT_URL || "")
+    .split(",")
+    .map((url) => url.trim())
+    .filter(Boolean),
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
+
 
 const port = process.env.PORT || 5000;
 
@@ -173,5 +187,25 @@ if (!process.env.VERCEL) {
     console.log(`Server is listening at port: ${port}`);
   });
 }
+
+app.get("/debug-db", async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT
+        DATABASE() AS databaseName,
+        @@hostname AS serverName,
+        (SELECT COUNT(*) FROM products) AS productsCount
+    `);
+
+    res.json(rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Database diagnostic failed",
+      code: err.code,
+    });
+  }
+});
+
 
 export default app;
