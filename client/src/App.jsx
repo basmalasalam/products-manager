@@ -4,7 +4,7 @@ import "./App.css";
 import Navbar from "../src/components/Navbar.jsx";
 import ProductForm from "./components/ProductForm.jsx";
 import ProductList from "./components/ProductList.jsx";
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "https://products-manager-seven.vercel.app/";
 
 function App() {
   const [products, setProducts] = useState([]);
