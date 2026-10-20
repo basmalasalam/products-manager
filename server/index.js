@@ -5,7 +5,7 @@ import pool from "./db.js";
 
 const app = express();
 
-// الروابط المسموح لها تكلّم الباك (ممكن أكتر من رابط بينهم فاصلة)
+
 const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
   .split(",")
   .map((url) => url.trim());
@@ -13,7 +13,6 @@ const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 
-// Render بيحدد البورت بنفسه
 const port = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
@@ -22,7 +21,7 @@ app.get("/", (req, res) => {
   });
 });
 
-// عرض الكل (بيرجّع مصفوفة مباشرة)
+
 app.get("/products", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM products ORDER BY id");
@@ -36,24 +35,9 @@ app.get("/products", async (req, res) => {
     });
   }
 });
-// مؤقت: للتشخيص بس، امسحه بعد ما تصلّح
-app.get("/debug", (req, res) => {
-  const host = process.env.DB_HOST || "";
-  res.json({
-    hasHost: host.length > 0,
-    hostEndsWithAivenCloud: host.endsWith("aivencloud.com"),
-    hostHasSpaces: host !== host.trim() || host.includes(" "),
-    hostHasPort: host.includes(":"),
-    port: process.env.DB_PORT || "NOT SET",
-    user: process.env.DB_USER || "NOT SET",
-    database: process.env.DB_NAME || "NOT SET",
-    ssl: process.env.DB_SSL || "NOT SET",
-    hasPassword: Boolean(process.env.DB_PASSWORD),
-    hasCA: Boolean(process.env.DB_CA),
-  });
-});
 
-// بحث بالاسم (اختياري، لازم قبل أي route فيه :id)
+
+
 app.get("/products/search", async (req, res) => {
   try {
     const q = (req.query.q || "").trim();
@@ -68,7 +52,7 @@ app.get("/products/search", async (req, res) => {
   }
 });
 
-// إضافة
+
 app.post("/products", async (req, res) => {
   const { name, price, category, stock } = req.body;
 
@@ -79,7 +63,7 @@ app.post("/products", async (req, res) => {
   }
 
   try {
-    // التأكد إن الاسم مش مكرر
+  
     const [existing] = await pool.query(
       "SELECT id FROM products WHERE name = ?",
       [name],
@@ -109,7 +93,7 @@ app.post("/products", async (req, res) => {
   }
 });
 
-// حذف
+
 app.delete("/products/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -136,7 +120,7 @@ app.delete("/products/:id", async (req, res) => {
   }
 });
 
-// تعديل
+
 app.put("/products/:id", async (req, res) => {
   const { id } = req.params;
   const { name, price, category, stock } = req.body;
