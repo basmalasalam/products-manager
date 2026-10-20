@@ -36,6 +36,22 @@ app.get("/products", async (req, res) => {
     });
   }
 });
+// مؤقت: للتشخيص بس، امسحه بعد ما تصلّح
+app.get("/debug", (req, res) => {
+  const host = process.env.DB_HOST || "";
+  res.json({
+    hasHost: host.length > 0,
+    hostEndsWithAivenCloud: host.endsWith("aivencloud.com"),
+    hostHasSpaces: host !== host.trim() || host.includes(" "),
+    hostHasPort: host.includes(":"),
+    port: process.env.DB_PORT || "NOT SET",
+    user: process.env.DB_USER || "NOT SET",
+    database: process.env.DB_NAME || "NOT SET",
+    ssl: process.env.DB_SSL || "NOT SET",
+    hasPassword: Boolean(process.env.DB_PASSWORD),
+    hasCA: Boolean(process.env.DB_CA),
+  });
+});
 
 // بحث بالاسم (اختياري، لازم قبل أي route فيه :id)
 app.get("/products/search", async (req, res) => {
